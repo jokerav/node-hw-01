@@ -1,0 +1,25 @@
+{
+  "name": "hw-01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "start:dev": "nodemon index.js 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jokerav/node-hw-01.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jokerav/node-hw-01/issues"
+  },
+  "homepage": "https://github.com/jokerav/node-hw-01#readme"
+}
