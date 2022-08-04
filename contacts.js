@@ -58,7 +58,7 @@ async function removeContact(contactId) {
         (contact) => contact.id !== contactId.toString()
       );
       console.log(contacts);
-      await fs.writeFile(contactsPath, JSON.stringify(contacts));
+      await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
     }
   } catch (err) {
     console.log(err.message);
@@ -72,7 +72,7 @@ async function addContact(name, email, phone) {
     const nameIsLock = await isNameInList(name);
     if (!iDIsLock && !nameIsLock) {
       data.push(contact);
-      await fs.writeFile(contactsPath, JSON.stringify(data));
+      await fs.writeFile(contactsPath, JSON.stringify(data, null, 2));
     }
     return data;
   } catch (err) {
