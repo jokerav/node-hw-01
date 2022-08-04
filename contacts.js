@@ -51,15 +51,16 @@ async function getContactById(contactId) {
 async function removeContact(contactId) {
   try {
     const inList = await isContactInList(contactId);
-    if (inList) {
-      const data = JSON.parse(await fs.readFile(contactsPath, "utf-8"));
-
-      const contacts = data.filter(
-        (contact) => contact.id !== contactId.toString()
-      );
-      console.log(contacts);
-      await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+    if (!inList) {
+      return null;
     }
+
+    const data = JSON.parse(await fs.readFile(contactsPath, "utf-8"));
+    const contacts = data.filter(
+      (contact) => contact.id !== contactId.toString()
+    );
+    console.log(contacts);
+    await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
   } catch (err) {
     console.log(err.message);
   }
