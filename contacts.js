@@ -50,17 +50,16 @@ async function getContactById(contactId) {
 
 async function removeContact(contactId) {
   try {
-    const inList = await isContactInList(contactId);
-    if (!inList) {
+    const contactsAll = await listContacts();
+    const index = contactsAll.findIndex(
+      (item) => item.id.toString() === contactId.toString()
+    );
+    if (index === -1) {
       return null;
     }
-
-    const data = JSON.parse(await fs.readFile(contactsPath, "utf-8"));
-    const contacts = data.filter(
-      (contact) => contact.id !== contactId.toString()
-    );
-    console.log(contacts);
-    await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+    const [result] = contactsAll.splice(index, 1);
+    await fs.writeFile(contactsPath, JSON.stringify(contactsAll, null, 2));
+    return result;
   } catch (err) {
     console.log(err.message);
   }
