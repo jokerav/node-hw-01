@@ -29,7 +29,7 @@ const isNameInList = async (name) => {
 async function listContacts() {
   try {
     const data = await fs.readFile(contactsPath, "utf8");
-    return data;
+    return JSON.parse(data);
   } catch (err) {
     console.log(err.message);
   }
@@ -38,7 +38,9 @@ async function listContacts() {
 async function getContactById(contactId) {
   try {
     const data = JSON.parse(await fs.readFile(contactsPath, "utf-8"));
-    return data.filter((contact) => contact.id === contactId.toString())[0];
+    return data.filter(
+      (contact) => contact.id.toString() === contactId.toString()
+    )[0];
   } catch (err) {
     console.log(err.message);
   }
@@ -66,13 +68,11 @@ async function addContact(name, email, phone) {
     const contact = { name, email, phone, id: uuidv4() };
     const iDIsLock = await isContactInList(contact.id);
     const nameIsLock = await isNameInList(name);
-    console.log(iDIsLock);
-    console.log(nameIsLock);
-
-    if (!nameIsLock && !nameIsLock) {
+    if (!iDIsLock && !nameIsLock) {
       data.push(contact);
       await fs.writeFile(contactsPath, JSON.stringify(data));
     }
+    return data;
   } catch (err) {
     console.log(err.message);
   }
