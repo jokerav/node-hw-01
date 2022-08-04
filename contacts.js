@@ -38,9 +38,11 @@ async function listContacts() {
 async function getContactById(contactId) {
   try {
     const data = JSON.parse(await fs.readFile(contactsPath, "utf-8"));
-    return data.filter(
-      (contact) => contact.id.toString() === contactId.toString()
-    )[0];
+    return (
+      data.filter(
+        (contact) => contact.id.toString() === contactId.toString()
+      )[0] || null
+    );
   } catch (err) {
     console.log(err.message);
   }
